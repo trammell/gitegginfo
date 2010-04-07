@@ -1,13 +1,10 @@
-# $Id:$
-# $Source:$
-
 usage:
-	@echo "usage: make [clean|install]"
+	@echo "usage: make [clean|test]"
 
 clean:
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf gitegginfo.egg-info
 
-install:
-
+test:
+	python2.4 setup.py test
 
