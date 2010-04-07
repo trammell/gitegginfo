@@ -15,7 +15,8 @@ setup(
     author_email='bills@holmescorp.com',
     url='http://www.holmescorp.com',
     license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages('lib',exclude=['ez_setup']),
+    package_dir = {'':'lib'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
@@ -27,4 +28,5 @@ setup(
         ],
     },
     test_suite = 'tests.test_suite',
+
 )
