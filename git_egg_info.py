@@ -22,17 +22,17 @@ class git_egg_info(egg_info):
     user_options = [
         ('egg-base=', 'e', "directory containing .egg-info directories"
                            " (default: top of the source tree)"),
-        ('tag-svn-revision', 'r',
-            "Add subversion revision ID to version number"),
+        ('tag-revision', 'r',
+            "Add revision ID to version number"),
         ('tag-date', 'd', "Add date stamp (e.g. 20050528) to version number"),
         ('tag-build=', 'b', "Specify explicit tag to add to version number"),
-        ('no-svn-revision', 'R',
-            "Don't add subversion revision ID [default]"),
+        ('no-revision', 'R',
+            "Don't add revision ID [default]"),
         ('no-date', 'D', "Don't include date stamp [default]"),
     ]
 
-    boolean_options = ['tag-date', 'tag-svn-revision']
-    negative_opt = {'no-svn-revision': 'tag-svn-revision',
+    boolean_options = ['tag-date', 'tag-revision']
+    negative_opt = {'no-revision': 'tag-revision',
                     'no-date': 'tag-date'}
 
 
@@ -95,45 +95,6 @@ class git_egg_info(egg_info):
             pd._version = self.egg_version
             pd._parsed_version = parse_version(self.egg_version)
             self.distribution._patched_dist = None
-
-
-    def write_or_delete_file(self, what, filename, data, force=False):
-        """Write `data` to `filename` or delete if empty
-
-        If `data` is non-empty, this routine is the same as ``write_file()``.
-        If `data` is empty but not ``None``, this is the same as calling
-        ``delete_file(filename)`.  If `data` is ``None``, then this is a no-op
-        unless `filename` exists, in which case a warning is issued about the
-        orphaned file (if `force` is false), or deleted (if `force` is true).
-        """
-        if data:
-            self.write_file(what, filename, data)
-        elif os.path.exists(filename):
-            if data is None and not force:
-                log.warn(
-                    "%s not set in setup(), but %s exists", what, filename
-                )
-                return
-            else:
-                self.delete_file(filename)
-
-    def write_file(self, what, filename, data):
-        """Write `data` to `filename` (if not a dry run) after announcing it
-
-        `what` is used in a log message to identify what is being written
-        to the file.
-        """
-        log.info("writing %s to %s", what, filename)
-        if not self.dry_run:
-            f = open(filename, 'wb')
-            f.write(data)
-            f.close()
-
-    def delete_file(self, filename):
-        """Delete `filename` (if not a dry run) after announcing it"""
-        log.info("deleting %s", filename)
-        if not self.dry_run:
-            os.unlink(filename)
 
     def tagged_version(self):
         return safe_version(self.distribution.get_version() + self.vtags)
