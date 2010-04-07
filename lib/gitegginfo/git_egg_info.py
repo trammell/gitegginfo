@@ -4,17 +4,13 @@ Create a distribution's .egg-info directory and contents, pulling version
 information from git or git-svn if possible."""
 
 import os, re
-from setuptools import Command
-from distutils.errors import *
+from distutils.errors import DistutilsOptionError
 from distutils import log
-from setuptools.command.sdist import sdist
-from distutils.util import convert_path
-from distutils.filelist import FileList
 from pkg_resources import parse_requirements, safe_name, parse_version, \
-    safe_version, yield_lines, EntryPoint, iter_entry_points, to_filename
-from sdist import walk_revctrl
+    safe_version, iter_entry_points, to_filename
 
-from setuptools.command.egg_info import egg_info
+from setuptools.command.egg_info import egg_info, manifest_maker, \
+    get_pkg_info_revision
 
 class git_egg_info(egg_info):
     description = "create a distribution's .egg-info directory"
@@ -114,18 +110,44 @@ class git_egg_info(egg_info):
         self.find_sources()
 
     def tags(self):
+        print ">>> in tags()"
         version = ''
         if self.tag_build:
             version+=self.tag_build
-        if self.tag_svn_revision and (
+        if self.tag_revision and (
             os.path.exists('.svn') or os.path.exists('PKG-INFO')
-        ):  version += '-r%s' % self.get_svn_revision()
+        ):  version += '-r%s' % self.get_git_revision()
         if self.tag_date:
             import time; version += time.strftime("-%Y%m%d")
         return version
 
-    def get_svn_revision(self):
+    def get_git_revision(self):
+        """Try to pull a suitable revision number from 'git-describe'."""
         revision = 0
+
+    def get_gitsvn_revision(self):
+        """Try to pull a suitable revision number from 'git-svn info'."""
+        revision = 0
+
+##!/usr/bin/env python2.4
+#
+#__all__ = ("call_gitsvn_info")
+#
+#from subprocess import Popen, PIPE
+#
+#def call_gitsvn_info():
+#    try:
+#        p = Popen(['git-svn', 'info'], stdout=PIPE, stderr=PIPE)
+#        p.stderr.close()
+#        for line in p.stdout.readlines():
+#            if 'Revision:' in line:
+#                return line.split()[1]
+#    except:
+#        return None
+#
+#if __name__ == "__main__":
+#    print call_gitsvn_info()
+
         urlre = re.compile('url="([^"]+)"')
         revre = re.compile('committed-rev="(\d+)"')
 
@@ -161,27 +183,4 @@ class git_egg_info(egg_info):
             revision = max(revision, localrev)
 
         return str(revision or get_pkg_info_revision())
-
-    def find_sources(self):
-        """Generate SOURCES.txt manifest file"""
-        manifest_filename = os.path.join(self.egg_info,"SOURCES.txt")
-        mm = manifest_maker(self.distribution)
-        mm.manifest = manifest_filename
-        mm.run()
-        self.filelist = mm.filelist
-
-    def check_broken_egg_info(self):
-        bei = self.egg_name+'.egg-info'
-        if self.egg_base != os.curdir:
-            bei = os.path.join(self.egg_base, bei)
-        if os.path.exists(bei):
-            log.warn(
-                "-"*78+'\n'
-                "Note: Your current .egg-info directory has a '-' in its name;"
-                '\nthis will not work correctly with "setup.py develop".\n\n'
-                'Please rename %s to %s to correct this problem.\n'+'-'*78,
-                bei, self.egg_info
-            )
-            self.broken_egg_info = self.egg_info
-            self.egg_info = bei     # make it work for now
 
