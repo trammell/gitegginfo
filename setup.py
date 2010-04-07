@@ -15,8 +15,8 @@ setup(
     author_email='bills@holmescorp.com',
     url='http://www.holmescorp.com',
     license='GPL',
-    packages=find_packages('lib'),
-    package_dir = {'':'lib'},
+    packages=find_packages('src'),
+    package_dir = {'':'src'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
