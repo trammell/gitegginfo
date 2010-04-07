@@ -26,4 +26,5 @@ setup(
             "gitegginfo = gitegginfo:git_egg_info",
         ],
     },
+    test_suite = 'tests.test_suite',
 )
