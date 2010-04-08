@@ -3,15 +3,11 @@
 Create a distribution's .egg-info directory and contents, pulling version
 information from git or git-svn if possible."""
 
-import os, re
+import os
 from distutils.errors import DistutilsOptionError
-from distutils import log
 from pkg_resources import parse_requirements, safe_name, parse_version, \
     safe_version, iter_entry_points, to_filename
-
-from setuptools.command.egg_info import egg_info, manifest_maker, \
-    get_pkg_info_revision
-
+from setuptools.command.egg_info import egg_info
 from gitegginfo.revision import get_gitsvn_revision
 
 class git_egg_info(egg_info):
