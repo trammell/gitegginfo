@@ -13,3 +13,6 @@ test:
 egg:
 	python2.4 setup.py bdist_egg
 
+release:
+	python2.4 setup.py bdist_egg register upload
+
