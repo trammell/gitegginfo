@@ -1,6 +1,7 @@
 Changes
 =======
 
-0.1 - unreleased
+0.1 - 2010-04-08
 ----------------
-* first, rough version
+* pulls git-svn revision
+
