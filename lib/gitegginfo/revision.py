@@ -21,16 +21,19 @@ def get_git_revision(self):
 def get_gitsvn_info():
     """Returns a dict containing the output from 'git-svn info'."""
     try:
-        d = {}
+        d = dict()
         p = Popen(['git-svn', 'info'], stdout=PIPE, stderr=PIPE)
         p.stderr.close()
         for line in p.stdout.readlines():
-            (name,value) = line.split(":",1)
-            d[name] = value
+            try:
+                (name,value) = line.strip().split(":",1)
+                print ">>> '%s' => '%s'" % (name.strip(),value.strip())
+                d[ name.strip() ] = value.strip()
+            except ValueError:
+                pass
         return d
     except:
-        return {}
-
+        return dict()
 
 def get_gitsvn_revision():
     """Pull the revision number from 'git-svn info'."""
