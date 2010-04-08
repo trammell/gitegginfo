@@ -52,7 +52,7 @@ class git_egg_info(egg_info):
             }
         )
 
-    def finalize_options (self):
+    def finalize_options(self):
         self.egg_name = safe_name(self.distribution.get_name())
         self.vtags = self.tags()
         self.egg_version = self.tagged_version()
@@ -120,67 +120,4 @@ class git_egg_info(egg_info):
         if self.tag_date:
             import time; version += time.strftime("-%Y%m%d")
         return version
-
-    def get_git_revision(self):
-        """Try to pull a suitable revision number from 'git-describe'."""
-        revision = 0
-
-    def get_gitsvn_revision(self):
-        """Try to pull a suitable revision number from 'git-svn info'."""
-        revision = 0
-
-##!/usr/bin/env python2.4
-#
-#__all__ = ("call_gitsvn_info")
-#
-#from subprocess import Popen, PIPE
-#
-#def call_gitsvn_info():
-#    try:
-#        p = Popen(['git-svn', 'info'], stdout=PIPE, stderr=PIPE)
-#        p.stderr.close()
-#        for line in p.stdout.readlines():
-#            if 'Revision:' in line:
-#                return line.split()[1]
-#    except:
-#        return None
-#
-#if __name__ == "__main__":
-#    print call_gitsvn_info()
-
-        urlre = re.compile('url="([^"]+)"')
-        revre = re.compile('committed-rev="(\d+)"')
-
-        for base,dirs,files in os.walk(os.curdir):
-            if '.svn' not in dirs:
-                dirs[:] = []
-                continue    # no sense walking uncontrolled subdirs
-            dirs.remove('.svn')
-            f = open(os.path.join(base,'.svn','entries'))
-            data = f.read()
-            f.close()
-
-            if data.startswith('<?xml'):
-                dirurl = urlre.search(data).group(1)    # get repository URL
-                localrev = max([int(m.group(1)) for m in revre.finditer(data)]+[0])
-            else:
-                try: svnver = int(data.splitlines()[0])
-                except: svnver=-1
-                if data<8:
-                    log.warn("unrecognized .svn/entries format; skipping %s", base)
-                    dirs[:] = []
-                    continue
-                   
-                data = map(str.splitlines,data.split('\n\x0c\n'))
-                del data[0][0]  # get rid of the '8' or '9'
-                dirurl = data[0][3]
-                localrev = max([int(d[9]) for d in data if len(d)>9 and d[9]]+[0])
-            if base==os.curdir:
-                base_url = dirurl+'/'   # save the root url
-            elif not dirurl.startswith(base_url):
-                dirs[:] = []
-                continue    # not part of the same svn tree, skip it
-            revision = max(revision, localrev)
-
-        return str(revision or get_pkg_info_revision())
 
