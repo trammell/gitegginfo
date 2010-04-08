@@ -4,7 +4,7 @@ setup(
     name='gitegginfo',
     version='0.1',
     description="Setuptools extension to use Git version information",
-    long_description=open('readme.txt').read() + '\n\n' + \
+    long_description=open('readme.rst').read() + '\n\n' + \
         open('history.txt').read() + '\n',
     classifiers=[
         "Programming Language :: Python",
