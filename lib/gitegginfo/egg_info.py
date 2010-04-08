@@ -12,6 +12,8 @@ from pkg_resources import parse_requirements, safe_name, parse_version, \
 from setuptools.command.egg_info import egg_info, manifest_maker, \
     get_pkg_info_revision
 
+from gitegginfo.revision import get_gitsvn_revision
+
 class git_egg_info(egg_info):
     description = "create a distribution's .egg-info directory"
 
@@ -110,14 +112,18 @@ class git_egg_info(egg_info):
         self.find_sources()
 
     def tags(self):
-        print ">>> in tags()"
         version = ''
+
         if self.tag_build:
             version+=self.tag_build
-        if self.tag_revision and (
-            os.path.exists('.svn') or os.path.exists('PKG-INFO')
-        ):  version += '-r%s' % self.get_git_revision()
+
+        if self.tag_revision:
+            rev = get_gitsvn_revision()
+            version += '-r%s' % rev
+
         if self.tag_date:
-            import time; version += time.strftime("-%Y%m%d")
+            import time
+            version += time.strftime("-%Y%m%d")
+
         return version
 
