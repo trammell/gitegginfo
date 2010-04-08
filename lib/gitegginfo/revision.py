@@ -27,7 +27,6 @@ def get_gitsvn_info():
         for line in p.stdout.readlines():
             try:
                 (name,value) = line.strip().split(":",1)
-                print ">>> '%s' => '%s'" % (name.strip(),value.strip())
                 d[ name.strip() ] = value.strip()
             except ValueError:
                 pass
