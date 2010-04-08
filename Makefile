@@ -7,7 +7,7 @@ clean:
 	rm -rf {lib,src}/*.egg-info
 
 test:
-	pyflakes lib/gitegginfo/git_egg_info.py
+	pyflakes lib/gitegginfo/*.py
 	python2.4 setup.py test
 
 egg:
