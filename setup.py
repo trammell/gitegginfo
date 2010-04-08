@@ -13,7 +13,7 @@ setup(
     keywords='setuptools egg_info git',
     author='John Trammell',
     author_email='johntrammell@gmail.com',
-    url='http://johntrammell.com',
+    url='http://github.com/trammell/gitegginfo',
     license='GPL',
     packages=find_packages('lib'),
     package_dir = {'':'lib'},
