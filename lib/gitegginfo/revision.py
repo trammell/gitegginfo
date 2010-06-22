@@ -1,7 +1,7 @@
 """gitegginfo
 
 Create a distribution's .egg-info directory and contents, pulling version
-information from git or git-svn if possible."""
+information from git or "git svn" if possible."""
 
 from subprocess import Popen, PIPE
 from setuptools.command.egg_info import get_pkg_info_revision
@@ -19,10 +19,10 @@ def get_git_revision(self):
 
 
 def get_gitsvn_info():
-    """Returns a dict containing the output from 'git-svn info'."""
+    """Returns a dict containing the output from "git svn info"."""
     try:
         d = dict()
-        p = Popen(['git-svn', 'info'], stdout=PIPE, stderr=PIPE)
+        p = Popen(['git', 'svn', 'info'], stdout=PIPE, stderr=PIPE)
         p.stderr.close()
         for line in p.stdout.readlines():
             try:
@@ -35,7 +35,7 @@ def get_gitsvn_info():
         return dict()
 
 def get_gitsvn_revision():
-    """Pull the revision number from 'git-svn info'."""
+    """Pull the revision number from 'git svn info'."""
     rev = get_gitsvn_info().get("Revision",0)
     return str(rev or get_pkg_info_revision())
 
