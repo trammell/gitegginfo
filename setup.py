@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gitegginfo',
-    version='0.2',
+    version='0.2.1',
     description="Setuptools extension to use Git version information",
     long_description=open('readme.rst').read() + '\n\n' + \
         open('history.txt').read() + '\n',
