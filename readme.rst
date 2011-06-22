@@ -64,10 +64,10 @@ See Also
 
 git_, git-svn_, setuptools_, setuptools_git_, subversion_
 
-.. _distutils:      http://docs.python.org/distutils/index.html
-.. _git:            http://git-scm.com/
-.. _git-svn:        http://www.kernel.org/pub/software/scm/git/docs/git-svn.html
-.. _setuptools:     http://pypi.python.org/pypi/setuptools
-.. _setuptools_git: http://pypi.python.org/pypi/setuptools-git/0.3.3
-.. _subversion:     http://en.wikipedia.org/wiki/Apache_Subversion
-.. _sdist:          http://docs.python.org/distutils/sourcedist.html
+.. _distutils     distutils:      http://docs.python.org/distutils/index.html
+.. _git           git:            http://git-scm.com/
+.. _gitsvn        git-svn:        http://www.kernel.org/pub/software/scm/git/docs/git-svn.html
+.. _setuptools    setuptools:     http://pypi.python.org/pypi/setuptools
+.. _setuptoolsgit setuptools-git: http://pypi.python.org/pypi/setuptools-git/0.3.3
+.. _subversion    subversion:     http://en.wikipedia.org/wiki/Apache_Subversion
+.. _sdist         sdist:          http://docs.python.org/distutils/sourcedist.html
