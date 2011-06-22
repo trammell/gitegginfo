@@ -6,18 +6,17 @@ clean:
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf build dist gitegginfo.egg-info
 	rm -rf {lib,src}/*.egg-info
+	rm -rf gitegginfo-*
 
 test:
 	pyflakes lib/gitegginfo/*.py
-	python2.4 setup.py test
+	python setup.py test
 
-egg:
-	python2.4 setup.py bdist_egg
+dist sdist:
+	python setup.py sdist
 
 release:
-	python2.4 setup.py bdist_egg register upload
+	python setup.py sdist register upload
 
 doc readme.html:
 	rst2html readme.rst readme.html
-
-
