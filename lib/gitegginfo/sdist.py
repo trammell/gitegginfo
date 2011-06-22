@@ -26,24 +26,27 @@ class gitsdist(_sdist):
         self.run_command('gitegginfo')
         ei_cmd = self.get_finalized_command('gitegginfo')
         self.filelist = ei_cmd.filelist
-        self.filelist.append(os.path.join(ei_cmd.egg_info,'SOURCES.txt'))
+        self.filelist.append(os.path.join(ei_cmd.egg_info, 'SOURCES.txt'))
         self.check_readme()
         self.check_metadata()
         self.make_distribution()
 
-        dist_files = getattr(self.distribution,'dist_files',[])
+        dist_files = getattr(self.distribution, 'dist_files', [])
         for file in self.archive_files:
             data = ('sdist', '', file)
             if data not in dist_files:
                 dist_files.append(data)
 
     def make_release_tree(self, base_dir, files):
-        """Override distutils.Who calls this? """      # FIXME
+        """
+        Extend setuptools's make_release_tree method to include the correct
+        setup.cfg in the distribution.
+        """
         _sdist.make_release_tree(self, base_dir, files)
 
         # Save any egg_info command line options used to create this sdist
         dest = os.path.join(base_dir, 'setup.cfg')
-        if hasattr(os,'link') and os.path.exists(dest):
+        if hasattr(os, 'link') and os.path.exists(dest):
             # unlink and re-copy, since it might be hard-linked, and
             # we don't want to change the source version
             os.unlink(dest)
