@@ -10,7 +10,7 @@ from setuptools.command.egg_info import get_pkg_info_revision
 def get_git_revision(self):
     """Try to pull a suitable revision number from 'git-describe'."""
     try:
-        p = Popen(['git-describe'], stdout=PIPE, stderr=PIPE)
+        p = Popen(['git', 'describe'], stdout=PIPE, stderr=PIPE)
         p.stderr.close()
         return p.stdout.readlines()[0]
     except:
