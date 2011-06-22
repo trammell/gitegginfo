@@ -133,8 +133,6 @@ class gitsdist(_sdist):
 
     def run(self):
         """ """
-        # FIXME: need to inject git-svn info string into setup.cfg
-        import pdb; pdb.set_trace()
         self.run_command('gitegginfo')
         ei_cmd = self.get_finalized_command('gitegginfo')
         self.filelist = ei_cmd.filelist
