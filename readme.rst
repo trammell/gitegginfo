@@ -5,12 +5,12 @@ gitegginfo
 Introduction
 ============
 
-Package ``gitegginfo`` adds two ``setuptools_`` commands to make it possible to
+Package ``gitegginfo`` adds two setuptools_ commands to make it possible to
 use setuptools with git repositories when building development eggs.  Problems
 occur in that setuptools specifically looks for subversion_ revision numbers,
 even when subversion is not the underlying SCM.
 
-This package is intended for use with ``git-svn_``, which I use as an interface
+This package is intended for use with git-svn_, which I use as an interface
 between git and subversion.
 
 gitegginfo
@@ -47,7 +47,7 @@ Troubleshooting
 ===============
 
 If you run into the problem where setuptools isn't including all your code in
-the created egg, you may need to install package ``setuptools-git_``.
+the created egg, you may need to install package setuptools-git_.
 
 
 Editorial
@@ -58,7 +58,7 @@ As I write this, the Python packaging infrastructure is in a dismal state.
 See Also
 ========
 
-git_, git-svn_, sdist_, setuptools_, setuptools-git_, subversion_
+distutils_, git_, git-svn_, sdist_, setuptools_, setuptools-git_, subversion_
 
 .. _distutils:      http://docs.python.org/distutils/index.html
 .. _git:            http://git-scm.com/
