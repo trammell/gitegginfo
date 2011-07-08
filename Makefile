@@ -3,10 +3,10 @@ usage:
 
 clean:
 	sudo rm -rf build dist
+	sudo rm -rf {lib,src}/*.egg-info
 	rm -f readme.html
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf build dist gitegginfo.egg-info
-	rm -rf {lib,src}/*.egg-info
 	rm -rf gitegginfo-*
 
 test:
