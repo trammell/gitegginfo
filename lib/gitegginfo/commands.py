@@ -42,11 +42,11 @@ class gitegginfo(egg_info):
 
         if self.tag_svn_revision:
             rev = get_gitsvn_revision()
-            version += '-r%s' % rev
+            version += '-r%s' % rev     # e.g. 0.1dev-r12345
 
         elif self.tag_git_desc:
             rev = get_git_description()
-            version += '-r%s' % rev
+            version += '-g.%s' % rev    # e.g. 0.1dev-g
 
         if self.tag_date:
             version += time.strftime("-%Y%m%d")
@@ -56,9 +56,9 @@ class gitegginfo(egg_info):
 
 class gitsdist(st_sdist):
     """
-    Extends class ``setuptools.command.sdist``. This version should correctly
-    create setup.cfg files for development eggs when using git for version
-    control.
+    Class to implement the ``gitsdist`` command, by extending class
+    ``setuptools.command.sdist``. This version should correctly create
+    setup.cfg files for development eggs when using git for version control.
     """
 
     user_options = [
