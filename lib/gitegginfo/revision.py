@@ -17,7 +17,7 @@ def get_git_description(self):
     off the tag portion of the description.
     """
     try:
-        p = Popen(['git', 'describe'], stdout=PIPE, stderr=PIPE)
+        p = Popen(['git', 'describe', '--always'], stdout=PIPE, stderr=PIPE)
         p.stderr.close()
         rev = p.stdout.readlines()[0].strip().split('-')
         return "-".join(rev[1:])
