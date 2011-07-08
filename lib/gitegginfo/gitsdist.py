@@ -1,11 +1,14 @@
-from setuptools.command.sdist import sdist as _sdist
+from setuptools.command.sdist import sdist as st_sdist
+from distutils.command.sdist import sdist as du_sdist
+
 import os
 
 
-class gitsdist(_sdist):
+class gitsdist(st_sdist):
     """
-    Extends class setuptools.command.sdist. This version should correctly
-    create setup.cfg files that work with git.
+    Extends class ``setuptools.command.sdist``. This version should correctly
+    create setup.cfg files for development eggs when using git for version
+    control.
     """
 
     user_options = [
@@ -39,10 +42,11 @@ class gitsdist(_sdist):
 
     def make_release_tree(self, base_dir, files):
         """
-        Extend setuptools's make_release_tree method to include the correct
-        setup.cfg in the distribution.
+        Extend distutils's make_release_tree method to include a
+        correctly-formatted ``setup.cfg`` in the source distribution.
         """
-        _sdist.make_release_tree(self, base_dir, files)
+
+        du_sdist.make_release_tree(self, base_dir, files)
 
         # Save any egg_info command line options used to create this sdist
         dest = os.path.join(base_dir, 'setup.cfg')
