@@ -2,6 +2,7 @@ usage:
 	@echo "usage: make [clean|test]"
 
 clean:
+	sudo rm -rf build dist
 	rm -f readme.html
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf build dist gitegginfo.egg-info
