@@ -9,11 +9,12 @@ from subprocess import Popen, PIPE
 from setuptools.command.egg_info import get_pkg_info_revision
 
 
-def get_git_revision(self):
+def get_git_description(self):
     """
     Try to pull a suitable revision number from the output of 'git describe'.
     The output will look like <tag>-<commits>-<obj>, e.g.  "v1.0-14-g2414721";
-    to massage it into something that can be used
+    to massage it into something that can be used, the following code strips
+    off the tag portion of the description.
     """
     try:
         p = Popen(['git', 'describe'], stdout=PIPE, stderr=PIPE)
