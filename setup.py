@@ -24,8 +24,8 @@ setup(
     ],
     entry_points = {
         "distutils.commands": [
-            "gitegginfo = gitegginfo.egg_info:git_egg_info",
-            "gitsdist = gitegginfo.sdist:gitsdist",
+            "gitegginfo = gitegginfo.gitegginfo:gitegginfo",
+            "gitsdist = gitegginfo.gitsdist:gitsdist",
         ],
     },
     test_suite = 'tests.test_suite',
