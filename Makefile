@@ -21,3 +21,6 @@ release:
 
 doc readme.html:
 	rst2html readme.rst readme.html
+
+install:
+	python setup.py install --force
