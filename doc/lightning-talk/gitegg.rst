@@ -213,7 +213,7 @@ question
 
 What are best practices for distributing code **today**?
 
-.. image:: state_of_packaging.jpg
+.. image:: state-of-packaging.jpg
 
 
 
