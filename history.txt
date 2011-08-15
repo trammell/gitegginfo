@@ -1,9 +1,13 @@
 Changes
 =======
 
+0.3 - 2011-07-08
+----------------
+* added gitsdist command [jt]
+
 0.2 - 2010-06-22
 ----------------
-* bug fix / 'git-svn' invocation
+* bug fix / 'git-svn' invocation [jt]
 
 0.1 - 2010-04-08
 ----------------
