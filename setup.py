@@ -1,9 +1,14 @@
 from setuptools import setup, find_packages
 
-setup(
+setup_args=dict(
     name='gitegginfo',
     version='0.3',
-    description="Setuptools extension to use Git version information",
+    description="""\
+    Setuptools extensions for git compatibility.
+
+    See the project home page at http://github.com/trammell/gitegginfo for
+    details.
+    """,
     long_description=open('readme.rst').read() + '\n\n' + \
         open('history.txt').read() + '\n',
     classifiers=[
@@ -29,5 +34,6 @@ setup(
         ],
     },
     test_suite = 'tests.test_suite',
-
 )
+
+setup(**setup_args)
